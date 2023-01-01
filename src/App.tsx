@@ -5,11 +5,14 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import UserProfile from './pages/UserProfile';
 
-function App() {
+import { NaviBar } from './components';
+
+const App = () => {
 
   return (
     <div className="App">
       <Router>
+        <NaviBar.default />
         <Routes>
           <Route path='/' element={<Home />} />
         </Routes>
