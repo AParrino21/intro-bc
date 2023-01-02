@@ -1,8 +1,14 @@
-import React from 'react'
+import { Button } from '@mui/material'
+import { useState, useContext } from 'react'
+import { AuthContext } from '../contexts/AuthContext';
 
 const Login = () => {
+  const { loginUser } = useContext(AuthContext)
+
   return (
-    <div>Login</div>
+    <div>
+      <Button onClick={loginUser} color="success" variant='contained'>Login</Button>
+    </div>
   )
 }
 
