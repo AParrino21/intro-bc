@@ -1,8 +1,11 @@
-import React, { createContext, ReactNode, useState } from 'react';
+import { createContext, ReactNode, useState } from 'react';
+import { auth } from "../firebase"
 
 type AuthProviderProps = {
     currentUser: boolean,
-    loginUser: () => void
+    signup: (email: string, password: string) => void,
+    login: (email: string, password: string) => void,
+    logout: () => void
 }
 
 type childrenProps = {
@@ -15,15 +18,25 @@ export const AuthProvider = ({ children }: childrenProps) => {
 
     const [currentUser, setCurrentUser] = useState<boolean>(false)
 
-    const loginUser = () => {
-        setCurrentUser(true)
+    function signup(email: string, password: string) {
+        return auth.createUserWithEmailAndPassword(email, password)
+    }
+
+    function login(email: string, password: string) {
+        return auth.signInWithEmailAndPassword(email, password)
+    }
+
+    function logout() {
+        return auth.signOut()
     }
 
     return (
         <AuthContext.Provider
             value={{
                 currentUser,
-                loginUser
+                signup,
+                login,
+                logout
             }}>
             {children}
         </AuthContext.Provider>
