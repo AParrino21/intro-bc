@@ -22,7 +22,12 @@ export const AuthProvider = ({ children }: childrenProps) => {
   }
 
   function login(email: string, password: string) {
-    return auth.signInWithEmailAndPassword(email, password);
+    return auth
+      .signInWithEmailAndPassword(email, password)
+      .catch(function (error) {
+        console.log(error.code);
+        console.log(error.message);
+      });
   }
 
   function logout() {
@@ -31,14 +36,13 @@ export const AuthProvider = ({ children }: childrenProps) => {
 
   React.useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
+      user?.updateProfile({
+        displayName: "ant"
+      })
       setCurrentUser(user);
     });
     return unsubscribe;
   }, []);
-
-  React.useEffect(() => {
-    console.log(currentUser);
-  }, [currentUser]);
 
   return (
     <AuthContext.Provider

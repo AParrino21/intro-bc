@@ -1,16 +1,20 @@
-import React from "react"
-import { Navigate } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext';
+import React from "react";
+import { Navigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
+import { auth } from "../firebase";
 
 const UserProfile = () => {
-  const { currentUser } = React.useContext(AuthContext)
+  const { currentUser } = React.useContext(AuthContext);
 
-  console.log(currentUser)
-  
-  if (!currentUser) return <Navigate to='/login' replace />
+  console.log(currentUser);
+  console.log(auth.currentUser && auth.currentUser)
+
+  if (!currentUser) return <Navigate to="/login" replace />;
   return (
-    <div>UserProfile</div>
-  )
-}
+    <div>
+      <h1>UserProfile for {auth.currentUser?.displayName}</h1>
+    </div>
+  );
+};
 
-export default UserProfile
+export default UserProfile;

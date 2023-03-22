@@ -1,7 +1,7 @@
 import React from "react";
-import { Button, TextField, Container, ListItem } from "@mui/material";
+import { Button, TextField, Container } from "@mui/material";
 import { AuthContext } from "../contexts/AuthContext";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface StyleSheet {
   [key: string]: React.CSSProperties;
@@ -22,10 +22,17 @@ const Login = () => {
       gap: "10px",
     },
   };
-  const { login } = React.useContext(AuthContext);
+  const navigate = useNavigate();
+  const { login, currentUser } = React.useContext(AuthContext);
 
   const emailRef = React.useRef<HTMLInputElement>(null);
   const passwordRef = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    if (currentUser) {
+      navigate("/profile");
+    }
+  }, [currentUser]);
 
   const handleLogin = () => {
     login(emailRef.current!.value, passwordRef.current!.value);
