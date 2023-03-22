@@ -2,6 +2,7 @@ import React from "react";
 import { Button, TextField, Container } from "@mui/material";
 import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Signup from "../components/Signup";
 
 interface StyleSheet {
   [key: string]: React.CSSProperties;
@@ -27,6 +28,7 @@ const Login = () => {
 
   const emailRef = React.useRef<HTMLInputElement>(null);
   const passwordRef = React.useRef<HTMLInputElement>(null);
+  const [openSignup, setOpenSignup] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     if (currentUser) {
@@ -37,6 +39,12 @@ const Login = () => {
   const handleLogin = () => {
     login(emailRef.current!.value, passwordRef.current!.value);
   };
+
+  const handleClose = () => {
+    setOpenSignup(false);
+  };
+
+  const handleSignup = () => {};
 
   return (
     <div>
@@ -56,9 +64,16 @@ const Login = () => {
             Login
           </Button>
           <p>or</p>
-          <Button onClick={handleLogin} color="success" variant="contained">
+          <Button
+            onClick={() => setOpenSignup(!openSignup)}
+            color="success"
+            variant="contained"
+          >
             Signup
           </Button>
+        </div>
+        <div>
+          <Signup open={openSignup} handleClose={handleClose} />
         </div>
       </Container>
     </div>

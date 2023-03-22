@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Signup from './pages/Signup';
+import Signup from './components/Signup';
 import UserProfile from './pages/UserProfile';
 
 import { NaviBar } from './components';
