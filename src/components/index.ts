@@ -1,1 +1,0 @@
-export * as NaviBar from "./NaviBar"

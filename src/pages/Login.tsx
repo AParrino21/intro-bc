@@ -2,27 +2,11 @@ import React from "react";
 import { Button, TextField, Container } from "@mui/material";
 import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import Signup from "../components/Signup";
+import Signup from "../components/Signup/Signup";
 
-interface StyleSheet {
-  [key: string]: React.CSSProperties;
-}
+import "./styles/Login.css";
 
 const Login = () => {
-  const styles: StyleSheet = {
-    root: {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-    buttonContainer: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: "10px",
-    },
-  };
   const navigate = useNavigate();
   const { login, currentUser } = React.useContext(AuthContext);
 
@@ -44,22 +28,25 @@ const Login = () => {
     setOpenSignup(false);
   };
 
-  const handleSignup = () => {};
-
   return (
     <div>
-      <Container style={styles.root}>
-        <h1>Login</h1>
-        <br />
-        <TextField inputRef={emailRef} label="Email"></TextField>
+      <Container className="login-container">
+        <h1 className="loginPropeties">Login</h1>
         <br />
         <TextField
+          className="loginPropeties"
+          inputRef={emailRef}
+          label="Email"
+        ></TextField>
+        <br />
+        <TextField
+          className="loginPropeties"
           inputRef={passwordRef}
           label="Password"
           type={"password"}
         ></TextField>
         <br />
-        <div style={styles.buttonContainer}>
+        <div className="buttonContainer">
           <Button onClick={handleLogin} color="primary" variant="contained">
             Login
           </Button>
