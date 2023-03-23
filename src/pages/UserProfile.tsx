@@ -12,7 +12,7 @@ const UserProfile = () => {
   if (!currentUser) return <Navigate to="/login" replace />;
   return (
     <div>
-      <h1>UserProfile for {auth.currentUser?.displayName}</h1>
+      <h1>UserProfile for {auth.currentUser?.email}</h1>
     </div>
   );
 };

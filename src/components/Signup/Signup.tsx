@@ -1,7 +1,8 @@
 import React from "react";
 import { Button, TextField, Modal, Box } from "@mui/material";
 import { AuthContext } from "../../contexts/AuthContext";
-import "./Signup.css"
+import { useNavigate } from "react-router-dom";
+import "./Signup.css";
 
 interface SignupProps {
   open: boolean;
@@ -9,7 +10,8 @@ interface SignupProps {
 }
 
 const Signup: React.FC<SignupProps> = ({ open, handleClose }) => {
-  const { setAlert, signup } = React.useContext(AuthContext);
+  const { setAlert, signup, currentUser } = React.useContext(AuthContext);
+  const navigate = useNavigate();
 
   const firstNameRef = React.useRef<HTMLInputElement>(null);
   const lastNameRef = React.useRef<HTMLInputElement>(null);
@@ -18,6 +20,12 @@ const Signup: React.FC<SignupProps> = ({ open, handleClose }) => {
   const newPasswordRefConfirm = React.useRef<HTMLInputElement>(null);
 
   const [pwdError, setPwdError] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    if (currentUser) {
+      navigate("/profile");
+    }
+  }, [currentUser]);
 
   const handleSignup = () => {
     if (
@@ -33,6 +41,7 @@ const Signup: React.FC<SignupProps> = ({ open, handleClose }) => {
         setPwdError(true);
         return setAlert("failed", "Your passwords do not match!");
       }
+      signup(newEmailRef.current!.value, newPasswordRef.current!.value);
       setAlert("success", "Account created successfully!");
     }
   };
